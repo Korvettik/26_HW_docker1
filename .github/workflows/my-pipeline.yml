@@ -3,7 +3,7 @@ name: My-GitHub-Actions
 on:
   push:
     branches:
-      - master
+    - master
 jobs:
   my_deploy:
     runs-on: ubuntu-latest
