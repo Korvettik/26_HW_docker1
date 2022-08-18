@@ -2,7 +2,7 @@ version: '3.3'
 
 services:
   web:
-    image: korvettik/skypro_docker_test:test
+    image: korvettik/flask-app:latest
     build: .
     ports:
       - "80:8080"
