@@ -2,23 +2,23 @@ name: My-GitHub-Actions
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - master
 
 jobs:
-  build:
-
-runs-on: ubuntu-latest
-
+  my_deploy:
+    runs-on: ubuntu-latest
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+    - name: print hello message11
+      run: echo "Hello World"
+    - name: print hello message12
+      run: echo "Hello World"
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+  my_deploy2:
+    runs-on: ubuntu-latest
+    steps:
+    - name: print hello message21
+      run: echo "Hello World"
+    - name: print hello message22
+      run: echo "Hello World"
+      
