@@ -13,27 +13,49 @@ on:
 
 # что делать (блоки контейнеров)
 jobs:
-  my_deploy:
+
+  build_and_push:
     runs-on: ubuntu-latest
     steps:
-    - name: print hello message11
-      run: echo "Hello World"
+      #
+      - name: clone code
+        uses: actions/checkout@v2
+      #
+      - name: docker build
+        run: docker build -t ispirin/flask-app:$GITHUB_REF_NAME-$GITHUB_RUN_ID .
+      #
+      - name: docker login
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+      # 
+      - name: docker push
+        run: docker push sermalenk/flask-app:$GITHUB_REF_NAME-$GITHUB_RUN_ID
 
-    - name: print hello message12
-      run: echo "Hello World"
 
-    # пример, как в 1 шаг пихнуть несколько действий
-    - name: Exetute few commands
-      run: |
-        echo "Application name ${{ env.APPLICATION_NAME}}"
-        echo "Package name ${{ env.PACKAGE_NAME}} "
-  my_deploy2:
-    runs-on: ubuntu-latest
-    # ожидать завершения определенного контейнера
-    needs: [ my_deploy ]
-    steps:
-    - name: print hello message21
-      run: echo "Hello World"
 
-    - name: print hello message22
-      run: echo "Hello World"
+
+  # my_deploy:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: print hello message11
+  #     run: echo "Hello World"
+
+  #   - name: print hello message12
+  #     run: echo "Hello World"
+
+  #   # пример, как в 1 шаг пихнуть несколько действий
+  #   - name: Exetute few commands
+  #     run: |
+  #       echo "Application name ${{ env.APPLICATION_NAME}}"
+  #       echo "Package name ${{ env.PACKAGE_NAME}} "
+
+
+  # my_deploy2:
+  #   runs-on: ubuntu-latest
+  #   # ожидать завершения определенного контейнера
+  #   needs: [ my_deploy ]
+  #   steps:
+  #   - name: print hello message21
+  #     run: echo "Hello World"
+
+  #   - name: print hello message22
+  #     run: echo "Hello World"
