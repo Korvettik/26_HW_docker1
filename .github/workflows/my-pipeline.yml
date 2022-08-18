@@ -1,22 +1,40 @@
 name: My-GitHub-Actions
 
+#блок глобальных переменных, которые можно применять внутри разных job-ов
+env: 
+  APPLICATION_NAME: "MyFlask"
+# ${{ спецкод }} --- это как f-строки, можно добавить активные переменные. в данном случае это код коммита
+  PACKAGE_NAME    : "flask-deploy-ver-${{ github.sha }}"
+  
+# реагировать на событие
 on:
   push:
     branches: [main]
+    
+# что делать (блоки контейнеров)
 jobs:
   my_deploy:
     runs-on: ubuntu-latest
     steps:
     - name: print hello message11
       run: echo "Hello World"
+      
     - name: print hello message12
       run: echo "Hello World"
+    
+    # пример, как в 1 шаг пихнуть несколько действий
+    - name: Exetute few commands
+      run: |
+        echo "Application name ${{ env.APPLICATION_NAME}}"
+        echo "Package name ${{ env.PACKAGE_NAME}} "
+
 
   my_deploy2:
     runs-on: ubuntu-latest
     steps:
     - name: print hello message21
       run: echo "Hello World"
+      
     - name: print hello message22
       run: echo "Hello World"
       
